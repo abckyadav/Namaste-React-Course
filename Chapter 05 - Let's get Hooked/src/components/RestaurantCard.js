@@ -1,9 +1,11 @@
+import { CDN_URL } from "../utils/contants";
+
 const RestaurantCard = ({ resData }) => {
   return (
     <div className="res-card">
       <img
         className="res-card-image"
-        src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_264,h_288,c_fill/${resData.cloudinaryImageId}`}
+        src={`${CDN_URL}${resData.cloudinaryImageId}`}
       />
       <h3 className="res-card-title">{resData.name}</h3>
       <p className="res-card-rating">Rating: {resData.avgRating} </p>

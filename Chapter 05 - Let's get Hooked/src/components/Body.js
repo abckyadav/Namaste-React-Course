@@ -1,5 +1,5 @@
 import RestaurantCard from "./RestaurantCard";
-import { swiggyData } from "../../data";
+import { SWIGGY_DATA } from "../utils/contants";
 
 const Body = () => {
   return (
@@ -9,9 +9,10 @@ const Body = () => {
         <button>Search</button>
       </div>
       <div className="res-container">
-        {swiggyData.map((data) => (
-          <RestaurantCard key={data.info.id} resData={data.info} />
-        ))}
+        {SWIGGY_DATA &&
+          SWIGGY_DATA.map((data) => (
+            <RestaurantCard key={data.info.id} resData={data.info} />
+          ))}
       </div>
     </div>
   );
