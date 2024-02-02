@@ -84,10 +84,6 @@
   cursor: pointer;
 }
 
-option:checked,
-option:hover {
-  box-shadow: 0 0 10px 100px #4ddc3b inset;
-}
 
 .search input {
   padding: 0.5rem;
