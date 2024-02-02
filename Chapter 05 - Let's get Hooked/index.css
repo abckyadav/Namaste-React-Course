@@ -1,5 +1,8 @@
 :root {
   --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  --box-shadow-hover: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --orange: rgba(255, 166, 0, 0.801);
+  --border-grey: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 * {
@@ -35,7 +38,6 @@
 .res-container {
   width: 80%;
   margin: auto;
-  padding: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
@@ -51,7 +53,7 @@
   padding-bottom: 1rem;
 }
 .res-card:hover {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: var(--box-shadow-hover);
 }
 .res-card h3,
 .res-card p {
@@ -66,17 +68,32 @@
   border-radius: 1rem 1rem 0 0;
 }
 
-.search {
-  text-align: center;
+.toolBar {
+  width: 80%;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 1rem auto;
+}
+
+.select {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: var(--border-grey);
+  cursor: pointer;
+}
+
+option:checked,
+option:hover {
+  box-shadow: 0 0 10px 100px #4ddc3b inset;
 }
 
 .search input {
   padding: 0.5rem;
   border-radius: 5px;
-  width: 50%;
-  border: 1px solid rgba(128, 128, 128, 0.3);
-  outline-color: rgba(128, 128, 128, 0.5);
+  border: var(--border-grey);
+  outline-color: var(--orange);
 }
 
 .search button {
@@ -84,17 +101,17 @@
   margin-left: 1rem;
   width: 100px;
   border-radius: 5px;
-  border: 1px solid rgba(128, 128, 128, 0.3);
+  border: var(--border-grey);
   cursor: pointer;
 }
 .search button:hover {
-  background-color: rgba(255, 166, 0, 0.801);
-  border: 1px solid rgba(255, 166, 0, 0.801);
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
 }
 .footer {
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 166, 0, 0.801);
+  background-color: var(--orange);
 }

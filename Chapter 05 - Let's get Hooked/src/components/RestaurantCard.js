@@ -1,6 +1,8 @@
 import { CDN_URL } from "../utils/contants";
 
-const RestaurantCard = ({ resData }) => {
+const RestaurantCard = (props) => {
+  const resData = props.resData.info;
+
   return (
     <div className="res-card">
       <img
