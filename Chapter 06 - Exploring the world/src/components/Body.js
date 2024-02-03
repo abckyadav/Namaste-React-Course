@@ -9,30 +9,20 @@ const Body = () => {
   const [selectValue, setSelectValue] = useState("allRestaurants");
   const [searchText, setSearchText] = useState("");
 
-  const filterTopRated = () => {
-    const filteredRestaurants = listOfRestaurants.filter(
-      (res) => res.info.avgRating >= 4
-    );
-
-    setListOfRestaurants(filteredRestaurants);
-    console.log("listOfRestaurants:", listOfRestaurants);
-  };
-
   const handleSelect = (e) => {
     setSelectValue(e.target.value);
   };
 
-  // useEffect(() => {
-  //   if (selectValue === "allRestaurants") {
-  //     setListOfRestaurants(SWIGGY_DATA);
-  //   } else {
-  //     const filteredRestaurants = listOfRestaurants.filter(
-  //       (res) => res.info.avgRating >= 4
-  //     );
-
-  //     setListOfRestaurants(filteredRestaurants);
-  //   }
-  // }, [selectValue]);
+  useEffect(() => {
+    if (selectValue === "allRestaurants") {
+      setFilterRestaurants(listOfRestaurants);
+    } else if (selectValue === "topRatedRestaurants") {
+      const filteredRestaurants = listOfRestaurants.filter(
+        (res) => res.info.avgRating >= 4
+      );
+      setFilterRestaurants(filteredRestaurants);
+    }
+  }, [selectValue]);
 
   const fetchRestaurants = async () => {
     const data = await fetch(SWIGGY_API);
@@ -66,6 +56,7 @@ const Body = () => {
       <div className="toolBar">
         <div className="filter">
           <select onChange={handleSelect} className="select">
+            <option value="---">Filter</option>
             <option value="allRestaurants">All Restaurants</option>
             <option value="topRatedRestaurants">Top Rated Restaurants</option>
           </select>

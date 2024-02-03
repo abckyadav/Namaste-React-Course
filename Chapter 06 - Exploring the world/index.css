@@ -13,6 +13,7 @@
 }
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   position: sticky;
   top: 0;
@@ -23,6 +24,7 @@
   width: 80%;
   margin: auto;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 }
@@ -39,8 +41,8 @@ a {
 }
 .nav-items > ul {
   display: flex;
+  flex-wrap: wrap;
   list-style-type: none;
-  padding: 0 1rem;
 }
 
 .nav-items > ul > li {
@@ -86,6 +88,8 @@ a {
   width: 80%;
   margin: 2rem auto;
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   align-items: center;
   justify-content: space-between;
   margin: 1rem auto;
@@ -109,6 +113,7 @@ a {
 .login-btn {
   padding: 0.5rem;
   margin-left: 1rem;
+  margin-bottom: 1rem;
   width: 100px;
   border-radius: 5px;
   border: var(--border-grey);
@@ -128,13 +133,55 @@ a {
   background-color: var(--orange);
 }
 
+/*Shimmer CSS */
 .shimmer-card {
   border-radius: 1rem;
   box-shadow: var(--box-shadow);
   width: 100%;
-  height: 250px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: 1rem;
+}
+.shimmer-title,
+.shimmer-tags,
+.shimmer-details {
+  padding: 0 1rem;
+  margin: 0.5rem;
+}
+
+.shimmer-title {
+  width: 60%;
+  margin-top: 10px;
+}
+.shimmer-tags {
+  width: 80%;
+}
+.shimmer-details {
+  width: 90%;
+}
+.shimmer-container .shimmer-img {
+  height: 100%;
+  width: 100%;
+  border-radius: 1rem 1rem 0 0;
+}
+
+/*Animation to Shimmer Component Cards */
+.stroke {
+  height: 15px;
+  background: #777;
+}
+.animate {
+  animation: shimmer 3s;
+  animation-iteration-count: infinite;
+  background: linear-gradient(to right, #e6e6e6 5%, #cccccc 25%, #e6e6e6 35%);
+  background-size: 1000px 100%;
+}
+@keyframes shimmer {
+  from {
+    background-position: -1000px 0;
+  }
+  to {
+    background-position: 1000px 0;
+  }
 }
