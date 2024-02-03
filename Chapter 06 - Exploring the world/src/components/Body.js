@@ -1,10 +1,13 @@
-import RestaurantCard from "./RestaurantCard";
-import { SWIGGY_DATA } from "../utils/contants";
 import { useEffect, useState } from "react";
+import RestaurantCard from "./RestaurantCard";
+import { SWIGGY_API } from "../utils/contants";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState(SWIGGY_DATA);
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filterRestaurants, setFilterRestaurants] = useState([]);
   const [selectValue, setSelectValue] = useState("allRestaurants");
+  const [searchText, setSearchText] = useState("");
 
   const filterTopRated = () => {
     const filteredRestaurants = listOfRestaurants.filter(
@@ -19,17 +22,44 @@ const Body = () => {
     setSelectValue(e.target.value);
   };
 
-  useEffect(() => {
-    if (selectValue === "allRestaurants") {
-      setListOfRestaurants(SWIGGY_DATA);
-    } else {
-      const filteredRestaurants = listOfRestaurants.filter(
-        (res) => res.info.avgRating >= 4
-      );
+  // useEffect(() => {
+  //   if (selectValue === "allRestaurants") {
+  //     setListOfRestaurants(SWIGGY_DATA);
+  //   } else {
+  //     const filteredRestaurants = listOfRestaurants.filter(
+  //       (res) => res.info.avgRating >= 4
+  //     );
 
-      setListOfRestaurants(filteredRestaurants);
-    }
-  }, [selectValue]);
+  //     setListOfRestaurants(filteredRestaurants);
+  //   }
+  // }, [selectValue]);
+
+  const fetchRestaurants = async () => {
+    const data = await fetch(SWIGGY_API);
+
+    const res = await data.json();
+    setListOfRestaurants(
+      res.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants ||
+        res.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilterRestaurants(
+      res.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants ||
+        res.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+  };
+
+  const handleSearch = () => {
+    const searchData = listOfRestaurants.filter((restaurant) =>
+      restaurant.info.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilterRestaurants(searchData);
+  };
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, []);
 
   return (
     <div className="body">
@@ -41,16 +71,24 @@ const Body = () => {
           </select>
         </div>
         <div className="search">
-          <input placeholder="Search Food Here..." />
-          <button>Search</button>
+          <input
+            placeholder="Search Food Here..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
         </div>
       </div>
-      <div className="res-container">
-        {listOfRestaurants &&
-          listOfRestaurants.map((data) => (
-            <RestaurantCard key={data.info.id} resData={data} />
-          ))}
-      </div>
+      {filterRestaurants.length === 0 ? (
+        <Shimmer />
+      ) : (
+        <div className="res-container">
+          {filterRestaurants &&
+            filterRestaurants.map((data) => (
+              <RestaurantCard key={data.info.id} resData={data} />
+            ))}
+        </div>
+      )}
     </div>
   );
 };
