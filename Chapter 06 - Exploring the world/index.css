@@ -1,0 +1,113 @@
+:root {
+  --box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  --box-shadow-hover: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --orange: rgba(255, 166, 0, 0.801);
+  --border-grey: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--box-shadow);
+}
+
+.logo > img {
+  width: 150px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.nav-items > ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0 1rem;
+}
+
+.nav-items > ul > li {
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+.res-container {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.res-card {
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+}
+.res-card:hover {
+  box-shadow: var(--box-shadow-hover);
+}
+.res-card h3,
+.res-card p {
+  padding: 0.3rem 1rem;
+  color: rgba(0, 0, 0, 0.692);
+}
+
+.res-card-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.toolBar {
+  width: 80%;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem auto;
+}
+
+.select {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: var(--border-grey);
+  cursor: pointer;
+}
+
+
+.search input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: var(--border-grey);
+  outline-color: var(--orange);
+}
+
+.search button {
+  padding: 0.5rem;
+  margin-left: 1rem;
+  width: 100px;
+  border-radius: 5px;
+  border: var(--border-grey);
+  cursor: pointer;
+}
+.search button:hover {
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+}
+.footer {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--orange);
+}
