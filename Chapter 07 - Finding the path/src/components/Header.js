@@ -34,9 +34,11 @@ const Header = () => {
             <li>Cart</li>
           </ul>
         </div>
-        <button className="login-btn" onClick={handleLoginLogout}>
-          {loginLogout}
-        </button>
+        <div>
+          <button className="login-btn" onClick={handleLoginLogout}>
+            {loginLogout}
+          </button>
+        </div>
       </div>
     </div>
   );
