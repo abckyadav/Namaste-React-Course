@@ -1,16 +1,39 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
-import Body from "./components/Body";
 import Footer from "./components/Footer";
-import About from "./components/About";
-import Contact from "./components/Contact";
 import Error from "./components/Error";
-import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import useOnlineStatus from "./utils/useOnlineStatus";
+import { InfinitySpin } from "react-loader-spinner";
+
+const Body = lazy(() => import("./components/Body"));
+const About = lazy(() => import("./components/About"));
+const Contact = lazy(() => import("./components/Contact"));
+const RestaurantMenu = lazy(() => import("./components/RestaurantMenu"));
+
+const Loader = () => {
+  return (
+    <div className="loaderContainer">
+      <InfinitySpin
+        visible={true}
+        width="100"
+        color="#4fa94d"
+        ariaLabel="infinity-spin-loading"
+      />
+    </div>
+  );
+};
 
 const AppLayout = () => {
-  return (
+  const onlineStatus = useOnlineStatus();
+  console.log("onlineStatus:", onlineStatus);
+
+  return onlineStatus === false ? (
+    <div className="noInternet">
+      <h1>Looks like you're offline!! Please check your internet connection</h1>
+    </div>
+  ) : (
     <div className="app">
       <Header />
       <Outlet />
@@ -26,19 +49,35 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Body />
+          </Suspense>
+        ),
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Contact />
+          </Suspense>
+        ),
       },
       {
         path: "/restaurants/:resId",
-        element: <RestaurantMenu />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <RestaurantMenu />
+          </Suspense>
+        ),
       },
     ],
     errorElement: <Error />,
