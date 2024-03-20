@@ -29,7 +29,7 @@ const Body = () => {
   const fetchRestaurants = async () => {
     try {
       const data = await fetch(SWIGGY_API);
-      // if response is not ok then throw new Error
+
       if (!data.ok) {
         const err = data.status;
         throw new Error(err);
