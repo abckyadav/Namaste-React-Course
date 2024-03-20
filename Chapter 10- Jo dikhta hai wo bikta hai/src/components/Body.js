@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withVegLabel } from "./RestaurantCard";
 import { SWIGGY_API } from "../utils/contants";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ const Body = () => {
   const [filterRestaurants, setFilterRestaurants] = useState([]);
   const [selectValue, setSelectValue] = useState("allRestaurants");
   const [searchText, setSearchText] = useState("");
+  const RestaurantCardVeg = withVegLabel(RestaurantCard);
 
   const handleSelect = (e) => {
     setSelectValue(e.target.value);
@@ -18,8 +19,8 @@ const Body = () => {
     if (selectValue === "allRestaurants") {
       setFilterRestaurants(listOfRestaurants);
     } else if (selectValue === "topRatedRestaurants") {
-      const filteredRestaurants = listOfRestaurants.filter(
-        (res) => res.info.avgRating >= 4
+      const filteredRestaurants = listOfRestaurants?.filter(
+        (res) => res?.info?.avgRating >= 4
       );
       setFilterRestaurants(filteredRestaurants);
     }
@@ -56,6 +57,7 @@ const Body = () => {
         // update the state variable restaurants with Swiggy API data
         setListOfRestaurants(resData);
         setFilterRestaurants(resData);
+        console.log("setListOfRestaurants:", listOfRestaurants);
       }
     } catch (error) {
       console.error(error); // show error in console
@@ -98,8 +100,12 @@ const Body = () => {
         <div className="res-container">
           {filterRestaurants &&
             filterRestaurants?.map((data) => (
-              <Link key={data.info.id} to={"/restaurants/" + data.info.id}>
-                <RestaurantCard resData={data} />
+              <Link key={data?.info?.id} to={"/restaurants/" + data?.info?.id}>
+                {data?.info?.veg ? (
+                  <RestaurantCardVeg resData={data} />
+                ) : (
+                  <RestaurantCard resData={data}  />
+                )}
               </Link>
             ))}
         </div>
